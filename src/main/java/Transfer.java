@@ -6,12 +6,10 @@ public class Transfer {
         return this.balance;
     }
 
-    public boolean transferMoney(double amount){
+    public Response transferMoney(double amount){
         if(amount > balance){
-            System.out.println("insufficient balance");
-            return false;
+            return new Response("001","insufficient balance");
         }
-        System.out.println("Success transfer for COP $" +amount);
-        return true;
+        return new Response("000","Success transfer for COP $" +amount);
     }
 }
