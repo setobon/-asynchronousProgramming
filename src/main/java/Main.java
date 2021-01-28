@@ -164,6 +164,9 @@ public class Main {
       System.out.println(factorialFuture.get());
    }*/
 
+   /*
+   EJEMPLO Aspect
+
    @Async
    public static void main(String[] args) throws ExecutionException, InterruptedException {
       Transfer transfer = new Transfer();
@@ -174,5 +177,50 @@ public class Main {
 
       System.out.println("status: "+ factorialFuture.get().getStatus()
               + " -- Message: " + factorialFuture.get().getMessage());
-   }
+   }*/
+
+
+   /**
+    * THREAD
+    *
+    * public static void main(String[] args) {
+       Thread[] threads = new Thread[20];
+
+       for(int i=0; i < threads.length; i++){
+           threads[i] = new MyThread("Thread "+i);
+       }
+
+       for(int i=0; i < threads.length; i++){
+           threads[i].start();
+           System.out.println(threads[i].getName());
+       }
+
+   }*/
+
+
+    /**
+    *
+    *
+    * public static void main(String[] args) {
+       MyThread myThread = new MyThread();
+
+       new Thread(myThread).start();
+    }*/
+
+
+    public static void main(String[] args) {
+
+
+        Customer customer1 = new Customer("Sara", new int[]{2, 2, 1, 5, 2, 3});
+        Customer customer2 = new Customer("Harry", new int[]{4, 1, 4, 1, 1});
+
+        StoreCashier storeCashier1 = new StoreCashier("Andres");
+        StoreCashier storeCashier2 = new StoreCashier("Andres");
+
+        long initialTime = System.currentTimeMillis();
+
+        storeCashier1.buy(customer1, initialTime);
+        storeCashier2.buy(customer2, initialTime);
+
+    }
 }
