@@ -208,7 +208,8 @@ public class Main {
     }*/
 
 
-    public static void main(String[] args) {
+    /**
+     * public static void main(String[] args) {
 
 
         Customer customer1 = new Customer("Sara", new int[]{2, 2, 1, 5, 2, 3});
@@ -222,5 +223,88 @@ public class Main {
         storeCashier1.buy(customer1, initialTime);
         storeCashier2.buy(customer2, initialTime);
 
+    }*/
+
+    /**
+     * Prioridades de los hilos
+     * - Rango es de 1 a 10, donde el rango 10 es el más prioritario
+     *
+     * Constantes para darles prioridad a los hilos:
+     * - MIN_PRIORITY = 1;
+     * - NORM_PRIORITY = 5;
+     * - MAX_PRIORITY = 10;
+     */
+
+
+    /*public static void main(String[] args) {
+        Runnable runnableThread = ()->{
+            showNameThread();
+            showPriority();
+        };
+
+
+        Thread thread1 = new Thread(runnableThread, "threadOne");
+        Thread thread2 = new Thread(runnableThread, "threadTwo");
+        Thread thread3 = new Thread(runnableThread, "threadThree");
+
+        thread1.setPriority(Thread.MIN_PRIORITY);
+        thread2.setPriority(Thread.MAX_PRIORITY);
+        thread3.setPriority(Thread.NORM_PRIORITY);
+
+        thread1.start();
+        thread2.start();
+        thread3.start();
+
+
+        Thread.yield();
+
+        System.out.println("Thread1: " + thread1.isAlive());
+        System.out.println("Thread2: " + thread2.isAlive());
+        System.out.println("Thread3: " + thread3.isAlive());
+
+        try {
+            //Join es para esperar a que un hilo termine
+            thread1.join();
+            thread2.join();
+            thread3.join();
+        }catch(InterruptedException exception){
+            exception.printStackTrace();
+        }
+
+        System.out.println("Thread1: " + thread1.isAlive());
+        System.out.println("Thread2: " + thread2.isAlive());
+        System.out.println("Thread3: " + thread3.isAlive());
+
+        System.out.println("process is finished");
     }
+
+
+    private static void showNameThread(){
+        for (int i = 0; i <= 5; i++){
+            System.out.println(Thread.currentThread().getName());
+            try{
+                Thread.sleep(2000);
+            }catch(InterruptedException exception){
+                exception.printStackTrace();
+            }
+        }
+    }
+
+    private static void showPriority(){
+        System.out.println("Priority: " + Thread.currentThread().getPriority());
+    }
+    public static void main(String[] args) {
+        MyThread myThread = new MyThread();
+        myThread.start();
+
+        for (int i = 0; i <= 5; i++){
+            Thread.yield();
+            System.out.println(myThread.getId());
+            myThread.interrupt();
+            System.out.println(myThread.getId());
+        }
+
+    }*/
+
+
 }

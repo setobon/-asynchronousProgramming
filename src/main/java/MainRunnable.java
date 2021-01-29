@@ -1,62 +1,28 @@
-public class MainRunnable implements Runnable{
+import java.util.concurrent.Executor;
 
-    /*private StoreCashier storeCashier;
-    private Customer customer;*/
-    private StadiumEntrance stadiumEntrance;
-    private Entry entry;
+public class MainRunnable{
+    private StoreCashier storeCashier;
+    private Customer customer;
     private long initialTime;
 
-    /*public MainRunnable(StoreCashier storeCashier, Customer customer, long initialTime) {
+    public MainRunnable(StoreCashier storeCashier, Customer customer, long initialTime) {
         this.storeCashier = storeCashier;
         this.customer = customer;
         this.initialTime = initialTime;
-    }*/
-
-    public MainRunnable(StadiumEntrance stadiumEntrance, Entry entry, long initialTime) {
-        this.stadiumEntrance = stadiumEntrance;
-        this.entry = entry;
-        this.initialTime = initialTime;
     }
-    @Override
-    public void run(){
-        this.stadiumEntrance.totalEntrances(this.entry, this.initialTime);
-    }
-
 
     public static void main(String[] args) {
-        Entry entry1 = new Entry("001", new int[]{2, 2, 1, 5, 2, 3});
-        Entry entry2 = new Entry("002", new int[]{4, 1, 4, 1, 1});
-
-        StadiumEntrance stadiumEntrance1 = new StadiumEntrance("Oriental");
-        StadiumEntrance stadiumEntrance2 = new StadiumEntrance("Occidental");
-
         long initialTime = System.currentTimeMillis();
 
-        Runnable processOne = new MainRunnable(stadiumEntrance1, entry1, initialTime);
-        Runnable processTwo = new MainRunnable(stadiumEntrance2, entry2, initialTime);
+        Customer customer = new Customer("Sergio",new int[]{2,2,1,5,2,3});
+        Customer customer2 = new Customer("Tobon",new int[]{4,1,4,1,1});
 
-        new Thread(processOne).start();
-        new Thread(processTwo).start();
-    }
-
-    /**
-     *
-     *
-
-    public static void main(String[] args) {
-        Customer customer1 = new Customer("Sara", new int[]{2, 2, 1, 5, 2, 3});
-        Customer customer2 = new Customer("Harry", new int[]{4, 1, 4, 1, 1});
-
+        StoreCashier storeCashier = new StoreCashier("Andres");
         StoreCashier storeCashier1 = new StoreCashier("Andres");
-        StoreCashier storeCashier2 = new StoreCashier("Andres");
 
-        long initialTime = System.currentTimeMillis();
+        Executor executor = new Invoker();
 
-        Runnable processOne = new MainRunnable(storeCashier1, customer1, initialTime);
-        Runnable processTwo = new MainRunnable(storeCashier2, customer2, initialTime);
-
-        new Thread(processOne).start();
-        new Thread(processTwo).start();
+        executor.execute(()-> storeCashier.buy(customer,initialTime));
+        executor.execute(()-> storeCashier1.buy(customer2,initialTime));
     }
-     */
 }
