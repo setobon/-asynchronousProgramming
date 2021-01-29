@@ -1,5 +1,7 @@
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.IntStream;
 
 /**
@@ -8,6 +10,7 @@ import java.util.stream.IntStream;
  * 1. FixedThreadPoolExecutor  -> Ejecutor de grupo de subprocesos fijos
  * 2. SingleThreadPoolExecutor -> Ejecutor de grupo de suprocesos únicos
  * 3. ChacheThreadPoolExecutor -> Ejecutor de grupo de subprocesos en caché
+ * 4. ScheduledThreadPool      -> Ejecutor de subprocesos programados
  */
 public class ExecutorServiceExample {
 
@@ -15,10 +18,58 @@ public class ExecutorServiceExample {
         //fixedThreadPoolExecutor();
         //singleThreadPoolExecutor();
         //cacheThreadPoolExecutor();
-        example();
+        //example();
+        //basicScheduledThreadPool();
+        //fixedRateScheduledThreadPool();
+        delayFixedRateScheduledThreadPool();
     }
 
-    private static void example() {
+    /**
+     * Los 10 segundos comienzan cuando la tarea ha terminado su ejecución
+     *
+     */
+    private static void delayFixedRateScheduledThreadPool(){
+        System.out.println("The thread started");
+
+        ScheduledExecutorService executors = Executors.newScheduledThreadPool(1);
+        IntStream.range(0, 10).forEach(
+                i ->executors.scheduleWithFixedDelay(
+                        ()->ExecutorServiceExample.showNameThread(), 20, 10,TimeUnit.SECONDS));
+
+        //executors.shutdown();
+
+        System.out.println("The thread finish");
+    }
+
+    /**
+     * El periodo inicia después de los 10 segundos exactos
+     */
+    private static void fixedRateScheduledThreadPool(){
+        System.out.println("The thread started");
+
+        ScheduledExecutorService executors = Executors.newScheduledThreadPool(1);
+        IntStream.range(0, 10).forEach(
+                i ->executors.scheduleAtFixedRate(
+                        ()->ExecutorServiceExample.showNameThread(), 20, 10,TimeUnit.SECONDS));
+
+        //executors.shutdown();
+
+        System.out.println("The thread finish");
+    }
+
+
+    private static void basicScheduledThreadPool(){
+        System.out.println("Tfhe thread started");
+
+        ExecutorService executors = Executors.newScheduledThreadPool(1);
+        IntStream.range(0, 10).forEach(
+                i ->((ScheduledExecutorService) executors).schedule(()->ExecutorServiceExample.showNameThread(), 20, TimeUnit.SECONDS));
+        executors.shutdown();
+
+        System.out.println("The thread finish");
+    }
+
+    private static void example(){
         System.out.println("The thread started");
 
         ExecutorService executors = Executors.newCachedThreadPool();
@@ -29,7 +80,7 @@ public class ExecutorServiceExample {
     }
 
 
-    private static void cacheThreadPoolExecutor() {
+    private static void cacheThreadPoolExecutor(){
         System.out.println("The thread started");
 
         ExecutorService executors = Executors.newCachedThreadPool();
@@ -39,7 +90,7 @@ public class ExecutorServiceExample {
         System.out.println("The thread finish");
     }
 
-    private static void singleThreadPoolExecutor() {
+    private static void singleThreadPoolExecutor(){
         System.out.println("The thread started");
 
         ExecutorService executors = Executors.newSingleThreadExecutor();
@@ -49,7 +100,7 @@ public class ExecutorServiceExample {
         System.out.println("The thread finish");
     }
 
-    private static void fixedThreadPoolExecutor() {
+    private static void fixedThreadPoolExecutor(){
         System.out.println("The thread started");
 
         ExecutorService executors = Executors.newFixedThreadPool(3);

@@ -1,4 +1,8 @@
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import java.util.stream.IntStream;
 
 public class MainRunnable{
     private StoreCashier storeCashier;
@@ -20,9 +24,15 @@ public class MainRunnable{
         StoreCashier storeCashier = new StoreCashier("Andres");
         StoreCashier storeCashier1 = new StoreCashier("Andres");
 
-        Executor executor = new Invoker();
+        //Executor executor = new Invoker();
 
-        executor.execute(()-> storeCashier.buy(customer,initialTime));
-        executor.execute(()-> storeCashier1.buy(customer2,initialTime));
+        //executor.execute(()-> storeCashier.buy(customer,initialTime));
+        //executor.execute(()-> storeCashier1.buy(customer2,initialTime));
+
+        ScheduledExecutorService executors = Executors.newScheduledThreadPool(1);
+
+        IntStream.range(0, 2).forEach(
+                i ->executors.scheduleWithFixedDelay(
+                        ()-> storeCashier.buy(customer,initialTime), 10, 5, TimeUnit.SECONDS));
     }
 }

@@ -1,4 +1,4 @@
-public class StoreCashier {
+public class StoreCashier implements Runnable {
 
     private String nameCashier;
 
@@ -38,5 +38,10 @@ public class StoreCashier {
         }catch (InterruptedException exception){
             Thread.currentThread().interrupt();
         }
+    }
+
+    @Override
+    public void run() {
+
     }
 }
